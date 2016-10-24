@@ -121,7 +121,7 @@ class GnipSearchTimeseries():
             self.stream_url = self.options.stream_url
         
         # search v2 uses a different url
-        if "data-api.twitter.com" not in self.stream_url:
+        if "gnip-api.twitter.com" not in self.stream_url:
             logging.error("gnipSearch timeline tools require Search V2. Exiting.")
             sys.stderr.write("gnipSearch timeline tools require Search V2. Exiting.\n")
             sys.exit(-1)
