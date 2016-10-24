@@ -200,7 +200,7 @@ class Query(object):
             for file_name in self.paged_file_list:
                 with codecs.open(file_name,"rb") as f:
                     for res in f:
-                        rec = json.loads(res.strip())
+                        rec = json.loads(res.decode('utf-8').strip())
                         t = datetime.datetime.strptime(rec["timePeriod"], TIME_FORMAT_SHORT)
                         yield [rec["timePeriod"], rec["count"], t]
         else:
@@ -218,7 +218,7 @@ class Query(object):
             for file_name in self.paged_file_list:
                 with codecs.open(file_name,"rb") as f:
                     for res in f:
-                        yield json.loads(res)
+                        yield json.loads(res.decode('utf-8'))
         else:
             for res in self.rec_dict_list:
                 yield res
@@ -253,8 +253,6 @@ class Query(object):
                     'query': pt_filter
             }
         self.rule_payload["maxResults"] = int(max_results)
-        if not self.search_v2:
-            self.rule_payload["publisher"] = "twitter"
         if start:
             self.rule_payload["fromDate"] = self.fromDate
         if end:
